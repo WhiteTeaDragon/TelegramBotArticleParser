@@ -20,6 +20,9 @@ def get_text(url):
         ans = ""
         for para in paragraphs:
             ans += para.text
+        paragraphs = html.select("li")
+        for para in paragraphs:
+            ans += para.text
         return ans
     return None
 
@@ -51,7 +54,6 @@ def check_site(url):
     #url = "https://pitchfork.com/reviews/albums/nils-frahm-all-encores/"
     #url = "https://pitchfork.com/reviews/albums/jonathan-fireeater-tremble-under-boom-lights/"
     #url = "https://pitchfork.com/reviews/tracks/lil-tjay-lil-baby-decline/"
-    #url = "https://pitchfork.com/reviews/albums/nils-frahm-all-melody/"
     #url = "https://pitchfork.com/reviews/albums/floating-points-crush/"
     #url = "https://pitchfork.com/reviews/albums/jimmy-eat-world-surviving/"
     #url = "https://pitchfork.com/news/bad-bunny-joins-natanael-cano-on-new-soy-el-diablo-remix-listen/"
@@ -62,7 +64,10 @@ def check_site(url):
     #url = "https://thequietus.com/articles/28104-melt-yourself-down-100-yes-review"
     #url = "https://www.caughtbytheriver.net/2020/04/country-music/"
     url = urllib.parse.unquote(url)
-    content = get_text(url)
+    try:
+        content = get_text(url)
+    except Exception:
+        return "Проблемы с подключением к странице, возможно, в адресе опечатка."
     if content is None:
         return "К сожалению, я не могу подключиться к этой странице."
     names_set = set()
@@ -86,6 +91,5 @@ def check_site(url):
                     if flag and (artist, song_name) not in pairs_set:
                         ans += str(song_name) + " by " + str(artist) + '\n'
                         pairs_set.add((artist, song_name))
-                i = j
         i += 1
     return ans
