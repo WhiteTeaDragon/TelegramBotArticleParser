@@ -37,7 +37,10 @@ def change_for_comp(str):
 
 def check_song(song_name, session):
     search_results = pylast.TrackSearch(track_title=song_name, artist_name="", network=session)
-    page = search_results.get_next_page()
+    try:
+        page = search_results.get_next_page()
+    except Exception:
+        return (False, None, song_name)
     MAX = min(3, len(page))
     for i in range(MAX):
         if len(page) > i:
