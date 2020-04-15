@@ -1,0 +1,7 @@
+import pylast
+
+TOKEN = "1105497555:AAEy9QTUEQ0zaQykEY6ZUNmCslIlmIrFzkY"
+API_KEY = "70d48262b0e787315b7cce695159b899"
+API_SECRET = "5150bc25a89cc30e9f7454e12a3afbac"
+username = "AlexSend57"
+password_hash = pylast.md5("0nly4YOU!")
